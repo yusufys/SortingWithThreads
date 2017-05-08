@@ -1,9 +1,19 @@
+/**********************************
+***********************************
+*** AD SOYAD: YUSUF YURTSEVER
+*** OGR NO. 02130001070
+*** DERS ADI : ISLETIM SISTERMLERI
+*** 1. ODEV
+*** 
+*** 
+************************************/
 package threadssorting;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -93,7 +103,7 @@ class MergeSubLists implements Runnable {
     }
 
     public List mergeLists() {
-        List merged = (List) Stream.concat(Twolists.sub1.stream(), 
+        List merged = (List) Stream.concat(Twolists.sub1.stream(),
                 Twolists.sub2.stream()).collect(Collectors.toList());
         return sortList(merged);
     }
@@ -121,43 +131,91 @@ class MergeSubLists implements Runnable {
 public class ThreadsSorting {
 
     public static void main(String[] args) {
-        System.out.println("\n\n___________________");
-        System.out.print("|++ INTEGERS ++|\n");
-        System.out.print("___________________\n");
+        while (true) {
 
-        LinkedList integersList = new LinkedList(Arrays.asList(7,12,19,3,18,4,2,6,15,8));
-        MyThread t1 = new MyThread(integersList);
-        SubList1Thread sublist1 = new SubList1Thread();
-        sublist1.run();
-        SubList2Thread sublist2 = new SubList2Thread();
-        sublist2.run();
-        MergeSubLists MergeSublists = new MergeSubLists();
-        MergeSublists.run();
-        //------------------
-        System.out.println("\n\n___________________");
-        System.out.println("\n|++ DECIMALS ++|");
-        System.out.print("___________________\n");        
-        LinkedList decimalsList = new LinkedList(Arrays.asList(0.7,0.12,0.19,0.3,0.18,0.4,0.2,0.6,0.15,0.8));
-        MyThread t2 = new MyThread(decimalsList);
-        SubList1Thread sublist1_2 = new SubList1Thread();
-        sublist1_2.run();
-        SubList2Thread sublist2_2 = new SubList2Thread();
-        sublist2_2.run();
-        MergeSubLists MergeSublists_2 = new MergeSubLists();
-        MergeSublists_2.run();
-        //------------------A-E-H-O-R-S-Ü
-        System.out.println("\n\n___________________");
-        System.out.println("\n|++ LETTER |++");
-        System.out.print("___________________\n");        
-        
-        LinkedList letters_List = new LinkedList(Arrays.asList("a","b","c","d","e","f","g","h","a"));
-        MyThread t3 = new MyThread(letters_List);
-        SubList1Thread sublist1_3 = new SubList1Thread();
-        sublist1_3.run();
-        SubList2Thread sublist2_3 = new SubList2Thread();
-        sublist2_3.run();
-        MergeSubLists MergeSublists_3 = new MergeSubLists();
-        MergeSublists_3.run();
+            LinkedList User_Input_List = new LinkedList();
+            Scanner readInp = new Scanner(System.in);
+            System.out.println("\nPress [i] for Integers\npress [d] for Decimals\npress [c] For Characters\n press [q] to END");
+            String elementsNumInput = readInp.nextLine();
+            if ("i".equals(elementsNumInput)) {
+                System.out.println("Please enter the number of elements you want to add:\n REMEMBER! YOUR LIST SHOULD HAVE EN EVEN NUMBER OF ELEMENTS!");
+
+                int usersInput = readInp.nextInt();
+                if (usersInput % 2 == 0) {
+                    System.out.println("Please enter the integers you wanna add to the list by leaving [SPACE] between each number..");
+                    for (int i = 0; i < usersInput; i++) {
+                        User_Input_List.add(readInp.nextInt());
+                    }
+                    System.out.println("Your List:\n" + User_Input_List);
+                    MyThread t1 = new MyThread(User_Input_List);
+                    t1.divideListByTwo(User_Input_List);
+                    SubList1Thread sublist1 = new SubList1Thread();
+                    sublist1.run();
+                    SubList2Thread sublist2 = new SubList2Thread();
+                    sublist2.run();
+                    MergeSubLists MergeSublists = new MergeSubLists();
+                    MergeSublists.run();
+
+                } else {
+                    System.out.println("YOUR LIST ELEMENTS NUMBER IS'NT EVEN!");
+                }
+
+            } else if ("d".equals(elementsNumInput)) {
+                System.out.println("Please enter the number of elements you want to add:\n REMEMBER! YOUR LIST SHOULD HAVE EN EVEN NUMBER OF ELEMENTS!");
+                int usersInput = readInp.nextInt();
+                if (usersInput % 2 == 0) {
+                    System.out.println("Please enter the DECIMALS you wanna add to the list by leaving [SPACE] between each number..");
+                    for (int i = 0; i < usersInput; i++) {
+                        User_Input_List.add(readInp.nextDouble());
+                    }
+                    System.out.println("Your List:\n" + User_Input_List);
+                    MyThread t2 = new MyThread(User_Input_List);
+                    t2.divideListByTwo(User_Input_List);
+                    SubList1Thread sublist1_2 = new SubList1Thread();
+                    sublist1_2.run();
+                    SubList2Thread sublist2_2 = new SubList2Thread();
+                    sublist2_2.run();
+                    MergeSubLists MergeSublists_2 = new MergeSubLists();
+                    MergeSublists_2.run();
+
+                } else {
+                    System.out.println("YOUR LIST ELEMENTS NUMBER IS'NT EVEN!");
+                    System.out.println();
+                }
+
+            } else if ("c".equals(elementsNumInput)) {//harfler için
+                System.out.println("Please enter the number of elements you want to add:\n REMEMBER! YOUR LIST SHOULD HAVE EN EVEN NUMBER OF ELEMENTS!");
+                int usersInput = readInp.nextInt();
+                if (usersInput % 2 == 0) {
+                    System.out.println("Please enter the  you wanna add to the list by leaving [SPACE] between each number..");
+                    for (int i = 0; i < usersInput; i++) {
+                        User_Input_List.add(readInp.next().charAt(0));
+                    }
+                    System.out.println("Your List:\n" + User_Input_List);
+                    MyThread t2 = new MyThread(User_Input_List);
+                    t2.divideListByTwo(User_Input_List);
+                    SubList1Thread sublist1_2 = new SubList1Thread();
+                    sublist1_2.run();
+                    SubList2Thread sublist2_2 = new SubList2Thread();
+                    sublist2_2.run();
+                    MergeSubLists MergeSublists_2 = new MergeSubLists();
+                    MergeSublists_2.run();
+
+                } else {
+                    System.out.println("YOUR LIST ELEMENTS NUMBER IS'NT EVEN!");
+                    System.out.println();
+                }
+            }
+            else if("q".equals(elementsNumInput)){
+                System.out.println("BYE!");
+                break;
+            }
+            else {
+                System.out.println("ERROR, TRY AGAIN. ");
+                System.out.println();
+            }
+
+        }
 
     }
 
