@@ -1,12 +1,3 @@
-/**********************************
-***********************************
-*** AD SOYAD: YUSUF YURTSEVER
-*** OGR NO. 02130001070
-*** DERS ADI : ISLETIM SISTERMLERI
-*** 1. ODEV
-*** 
-*** 
-************************************/
 package threadssorting;
 
 import java.util.Arrays;
